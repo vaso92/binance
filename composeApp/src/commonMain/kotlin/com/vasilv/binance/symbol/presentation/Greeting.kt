@@ -1,4 +1,4 @@
-package com.vasilv.binance.presentation
+package com.vasilv.binance.symbol.presentation
 
 import com.vasilv.binance.getPlatform
 

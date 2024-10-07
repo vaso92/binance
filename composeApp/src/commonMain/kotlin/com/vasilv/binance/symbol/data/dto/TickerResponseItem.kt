@@ -1,5 +1,10 @@
-package com.vasilv.binance.symbol.data
+package com.vasilv.binance.symbol.data.dto
 
+import kotlinx.serialization.Serializable
+
+typealias TickerResponse = List<TickerResponseItem>
+
+@Serializable
 data class TickerResponseItem(
     val askPrice: String,
     val askQty: String,

@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.ContentAlpha
 import androidx.compose.material.Divider
 import androidx.compose.material.LocalTextStyle
@@ -23,6 +24,8 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
 import com.valentinilk.shimmer.shimmer
 import com.vasilv.binance.symbol.domain.model.Symbol
+import com.vasilv.binance.symbol.presentation.components.bottomFadingEdge
+import com.vasilv.binance.symbol.presentation.components.topFadingEdge
 import com.vasilv.binance.symbol.presentation.constants.Paddings
 
 @Composable
@@ -45,8 +48,19 @@ fun SymbolListContent(
             }
         }
     } else {
+        val listState = rememberLazyListState()
         LazyColumn(
-            modifier = Modifier.padding(horizontal = Paddings.SIDE_PADDING)
+            state = listState,
+            modifier = Modifier
+                .topFadingEdge(
+                    color = MaterialTheme.colors.surface,
+                    isVisible = listState.canScrollBackward
+                )
+                .bottomFadingEdge(
+                    color = MaterialTheme.colors.surface,
+                    isVisible = listState.canScrollForward
+                )
+                .padding(horizontal = Paddings.SIDE_PADDING)
         ) {
             items(items) {
                 SymbolListItem(

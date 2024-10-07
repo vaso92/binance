@@ -7,11 +7,14 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Divider
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.vasilv.binance.symbol.domain.model.Symbol
+import com.vasilv.binance.symbol.presentation.components.bottomFadingEdge
+import com.vasilv.binance.symbol.presentation.components.topFadingEdge
 import com.vasilv.binance.symbol.presentation.constants.Paddings
 
 @Composable
@@ -21,6 +24,14 @@ fun SymbolDetailContent(symbol: Symbol) {
         modifier = Modifier
             .fillMaxSize()
             .padding(horizontal = Paddings.SIDE_PADDING)
+            .topFadingEdge(
+                color = MaterialTheme.colors.surface,
+                isVisible = scrollState.canScrollBackward
+            )
+            .bottomFadingEdge(
+                color = MaterialTheme.colors.surface,
+                isVisible = scrollState.canScrollForward
+            )
             .verticalScroll(scrollState)
     ) {
         NamedPropertyColumn("askPrice", symbol.askPrice)

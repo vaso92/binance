@@ -29,4 +29,12 @@ class SymbolListViewModel(private val symbolRepository: SymbolRepository = Symbo
             }
         }
     }
+
+    fun refresh() {
+        viewModelScope.launch {
+            _uiState.update { it.copy(isRefreshing = true) }
+            symbolRepository.refreshSymbolList()
+            _uiState.update { it.copy(isRefreshing = false) }
+        }
+    }
 }

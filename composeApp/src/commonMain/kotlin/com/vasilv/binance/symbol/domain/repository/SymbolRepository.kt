@@ -7,5 +7,5 @@ import com.vasilv.binance.symbol.domain.model.Symbol
 interface SymbolRepository {
     suspend fun getSymbolList(): Result<List<Symbol>, DataError>
 
-    fun refreshSymbolList(): Result<Unit, DataError>
+    suspend fun refreshSymbolList(): Result<Unit, DataError>
 }

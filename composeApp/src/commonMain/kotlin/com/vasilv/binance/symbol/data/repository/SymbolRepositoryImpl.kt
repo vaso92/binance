@@ -7,6 +7,7 @@ import com.vasilv.binance.symbol.domain.Result
 import com.vasilv.binance.symbol.domain.map
 import com.vasilv.binance.symbol.domain.model.Symbol
 import com.vasilv.binance.symbol.domain.repository.SymbolRepository
+import kotlinx.coroutines.delay
 
 class SymbolRepositoryImpl : SymbolRepository {
     private val api = BinanceApi(client)
@@ -41,7 +42,8 @@ class SymbolRepositoryImpl : SymbolRepository {
                 }
             }
 
-    override fun refreshSymbolList(): Result<Unit, DataError> {
-        TODO("Not yet implemented")
+    override suspend fun refreshSymbolList(): Result<Unit, DataError> {
+        delay(3000)
+        return Result.Success(Unit)
     }
 }

@@ -19,10 +19,12 @@ class SymbolListScreen : Screen {
 
         SymbolListContent(
             isLoading = uiState.isLoading,
+            isRefreshing = uiState.isRefreshing,
             items = uiState.symbolList,
             onSymbolClick = { symbol ->
                 navigator.push(SymbolDetailScreen(symbol))
-            }
+            },
+            onRefresh = viewModel::refresh,
         )
     }
 }

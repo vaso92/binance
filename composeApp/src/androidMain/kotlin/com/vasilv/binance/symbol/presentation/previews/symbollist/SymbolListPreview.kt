@@ -14,6 +14,7 @@ private fun SymbolListPreview() {
         Surface {
             SymbolListContent(
                 isLoading = false,
+                isRefreshing = false,
                 items = listOf(
                     Symbol(
                         askPrice = "diam",
@@ -61,7 +62,8 @@ private fun SymbolListPreview() {
                         weightedAvgPrice = "nominavi"
                     )
                 ),
-                onSymbolClick = {}
+                onSymbolClick = {},
+                onRefresh = {}
             )
         }
     }

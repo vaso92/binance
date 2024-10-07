@@ -22,6 +22,7 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
 import com.valentinilk.shimmer.shimmer
 import com.vasilv.binance.symbol.domain.model.Symbol
+import com.vasilv.binance.symbol.presentation.constants.Paddings
 
 @Composable
 fun SymbolListContent(
@@ -29,7 +30,11 @@ fun SymbolListContent(
     items: List<Symbol>
 ) {
     if (isLoading) {
-        LazyColumn(Modifier.shimmer()) {
+        LazyColumn(
+            Modifier
+                .padding(horizontal = Paddings.SIDE_PADDING)
+                .shimmer()
+        ) {
             items(20) {
                 ShimmerListItem(
                     modifier = Modifier.fillMaxWidth()
@@ -38,7 +43,9 @@ fun SymbolListContent(
             }
         }
     } else {
-        LazyColumn {
+        LazyColumn(
+            modifier = Modifier.padding(horizontal = Paddings.SIDE_PADDING)
+        ) {
             items(items) {
                 SymbolListItem(
                     symbol = it,

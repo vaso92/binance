@@ -1,6 +1,7 @@
 package com.vasilv.binance.symbol.presentation.symbollist
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -27,7 +28,8 @@ import com.vasilv.binance.symbol.presentation.constants.Paddings
 @Composable
 fun SymbolListContent(
     isLoading: Boolean,
-    items: List<Symbol>
+    items: List<Symbol>,
+    onSymbolClick: (Symbol) -> Unit
 ) {
     if (isLoading) {
         LazyColumn(
@@ -49,7 +51,7 @@ fun SymbolListContent(
             items(items) {
                 SymbolListItem(
                     symbol = it,
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier.fillMaxWidth().clickable { onSymbolClick(it) }
                 )
                 Divider(modifier = Modifier.padding(vertical = 10.dp))
             }

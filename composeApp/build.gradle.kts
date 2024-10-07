@@ -56,6 +56,10 @@ kotlin {
             implementation(libs.ktor.client.encoding)
             implementation(libs.lifecycle.viewmodel.compose)
             implementation(libs.kermit)
+
+            implementation(libs.voyager.navigator)
+            implementation(libs.voyager.screenmodel)
+            implementation(libs.voyager.koin)
         }
         val iosX64Main by getting
         val iosArm64Main by getting

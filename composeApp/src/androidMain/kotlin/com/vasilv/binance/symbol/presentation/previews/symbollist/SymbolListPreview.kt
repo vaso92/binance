@@ -12,7 +12,7 @@ import com.vasilv.binance.symbol.presentation.symbollist.SymbolListContent
 private fun SymbolListPreview() {
     MaterialTheme {
         Surface {
-             SymbolListContent(
+            SymbolListContent(
                 isLoading = false,
                 items = listOf(
                     Symbol(
@@ -60,7 +60,8 @@ private fun SymbolListPreview() {
                         volume = "gubergren",
                         weightedAvgPrice = "nominavi"
                     )
-                )
+                ),
+                onSymbolClick = {}
             )
         }
     }

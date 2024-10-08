@@ -22,8 +22,8 @@ room = "2.7.0-alpha09"
 voyagerVersion = "1.1.0-beta02"
 ksp = "2.0.20-1.0.25"
 sqlite-bundled = "2.4.0"
-koin = "3.6.0-Beta4"
-koin-compose = "1.2.0-Beta4"
+koin = "4.0.0"
+koin-compose = "4.0.0"
 
 [libraries]
 compose-shimmer = { module = "com.valentinilk.shimmer:compose-shimmer", version.ref = "composeShimmer" }

@@ -5,6 +5,7 @@ import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Transaction
 import androidx.room.Upsert
+import com.vasilv.binance.symbol.domain.model.Symbol
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -26,4 +27,7 @@ interface SymbolDao {
 
     @Upsert
     suspend fun upsertSymbol(symbolEntity: SymbolEntity)
+
+    @Query("SELECT * FROM SymbolsTable WHERE symbol = :symbol")
+    fun getSymbol(symbol: String): Flow<SymbolEntity?>
 }

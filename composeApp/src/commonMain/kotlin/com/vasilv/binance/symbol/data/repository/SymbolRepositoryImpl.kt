@@ -93,4 +93,35 @@ class SymbolRepositoryImpl(
             }
         }
     }
+
+    override suspend fun getSymbol(symbolId: String): Flow<Result<Symbol, DataError>> =
+        database.symbolDao().getSymbol(symbolId).map { symbol ->
+            symbol?.let {
+                Result.Success(
+                    Symbol(
+                        askPrice = it.askPrice,
+                        askQty = it.askQty,
+                        bidPrice = it.bidPrice,
+                        bidQty = it.bidQty,
+                        closeTime = it.closeTime,
+                        count = it.count,
+                        firstId = it.firstId,
+                        highPrice = it.highPrice,
+                        lastId = it.lastId,
+                        lastPrice = it.lastPrice,
+                        lastQty = it.lastQty,
+                        lowPrice = it.lowPrice,
+                        openPrice = it.openPrice,
+                        openTime = it.openTime,
+                        prevClosePrice = it.prevClosePrice,
+                        priceChange = it.priceChange,
+                        priceChangePercent = it.priceChangePercent,
+                        quoteVolume = it.quoteVolume,
+                        symbol = it.symbol,
+                        volume = it.volume,
+                        weightedAvgPrice = it.weightedAvgPrice
+                    )
+                )
+            } ?: Result.Error(DataError.Network.UNKNOWN)
+        }
 }

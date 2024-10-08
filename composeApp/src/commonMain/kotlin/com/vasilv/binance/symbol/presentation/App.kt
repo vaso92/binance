@@ -5,11 +5,14 @@ import androidx.compose.runtime.Composable
 import cafe.adriel.voyager.navigator.Navigator
 import com.vasilv.binance.symbol.presentation.symbollist.SymbolListScreen
 import org.jetbrains.compose.ui.tooling.preview.Preview
+import org.koin.compose.KoinContext
 
 @Composable
 @Preview
 fun App() {
-    MaterialTheme {
-        Navigator(SymbolListScreen())
+    KoinContext() {
+        MaterialTheme {
+            Navigator(SymbolListScreen())
+        }
     }
 }

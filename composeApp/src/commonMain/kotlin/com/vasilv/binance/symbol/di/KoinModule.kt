@@ -3,11 +3,13 @@ package com.vasilv.binance.symbol.di
 import com.vasilv.binance.symbol.data.repository.SymbolRepositoryImpl
 import com.vasilv.binance.symbol.data.repository.remote.SymbolsRemoteDataSource
 import com.vasilv.binance.symbol.domain.repository.SymbolRepository
+import com.vasilv.binance.symbol.presentation.symboldetail.SymbolDetailViewModel
 import com.vasilv.binance.symbol.presentation.symbollist.SymbolListViewModel
-import org.koin.compose.viewmodel.dsl.viewModel
 import org.koin.core.context.startKoin
 import org.koin.core.module.Module
 import org.koin.core.module.dsl.singleOf
+import org.koin.core.module.dsl.viewModel
+import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.KoinAppDeclaration
 import org.koin.dsl.bind
 import org.koin.dsl.module
@@ -30,5 +32,6 @@ val provideDataSourceModule = module {
 }
 
 val provideViewModelModule = module {
-    viewModel { SymbolListViewModel(get()) }
+    viewModelOf(::SymbolListViewModel)
+    viewModel { (symbolId: String) -> SymbolDetailViewModel(symbolId, get()) }
 }

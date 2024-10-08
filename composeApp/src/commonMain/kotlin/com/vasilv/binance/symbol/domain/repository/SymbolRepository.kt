@@ -9,4 +9,6 @@ interface SymbolRepository {
     suspend fun getSymbolList(): Flow<Result<List<Symbol>, DataError>>
 
     suspend fun refreshSymbolList(): Result<Unit, DataError>
+
+    suspend fun getSymbol(symbolId: String): Flow<Result<Symbol, DataError>>
 }

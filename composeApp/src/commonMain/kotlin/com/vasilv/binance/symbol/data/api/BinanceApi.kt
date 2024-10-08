@@ -18,6 +18,8 @@ class BinanceApi(private val httpClient: HttpClient) {
             return com.vasilv.binance.symbol.domain.Result.Error(DataError.Network.NO_INTERNET)
         } catch (e: JsonConvertException) {
             return com.vasilv.binance.symbol.domain.Result.Error(DataError.Network.SERIALIZATION)
+        } catch (e: Throwable) {
+            return com.vasilv.binance.symbol.domain.Result.Error(DataError.Network.UNKNOWN)
         }
 
         return when (response.status.value) {

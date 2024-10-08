@@ -8,6 +8,8 @@ plugins {
     alias(libs.plugins.jetbrainsCompose)
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.serialization)
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.room)
 }
 
 kotlin {
@@ -17,9 +19,9 @@ kotlin {
             jvmTarget.set(JvmTarget.JVM_11)
         }
     }
-    
+
     jvm("desktop")
-    
+
     listOf(
         iosX64(),
         iosArm64(),
@@ -30,14 +32,17 @@ kotlin {
             isStatic = true
         }
     }
-    
+
     sourceSets {
         val desktopMain by getting
-        
+
         androidMain.dependencies {
             implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
             implementation(libs.ktor.client.okhttp)
+
+            implementation(libs.koin.android)
+            implementation(libs.koin.androidx.compose)
         }
         commonMain.dependencies {
             implementation(compose.runtime)
@@ -60,6 +65,13 @@ kotlin {
             implementation(libs.voyager.navigator)
             implementation(libs.voyager.screenmodel)
             implementation(libs.voyager.koin)
+
+            implementation(libs.room.runtime)
+            implementation(libs.sqlite.bundled)
+
+            api(libs.koin.core)
+            implementation(libs.koin.compose)
+            implementation(libs.koin.composeVM)
         }
         val iosX64Main by getting
         val iosArm64Main by getting
@@ -127,4 +139,12 @@ compose.desktop {
             packageVersion = "1.0.0"
         }
     }
+}
+
+room {
+    schemaDirectory("$projectDir/schemas")
+}
+
+dependencies {
+    ksp(libs.room.compiler)
 }

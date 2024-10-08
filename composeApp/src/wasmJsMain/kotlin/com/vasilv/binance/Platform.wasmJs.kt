@@ -1,6 +1,6 @@
 package com.vasilv.binance
 
-class WasmPlatform: Platform {
+class WasmPlatform : Platform {
     override val name: String = "Web with Kotlin/Wasm"
 }
 

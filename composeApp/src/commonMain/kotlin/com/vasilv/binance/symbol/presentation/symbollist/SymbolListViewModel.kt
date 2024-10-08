@@ -1,6 +1,5 @@
 package com.vasilv.binance.symbol.presentation.symbollist
 
-
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.vasilv.binance.symbol.data.repository.SymbolRepositoryImpl
@@ -11,20 +10,22 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-class SymbolListViewModel(private val symbolRepository: SymbolRepository = SymbolRepositoryImpl()) :
+class SymbolListViewModel(private val symbolRepository: SymbolRepository) :
     ViewModel() {
     private val _uiState = MutableStateFlow(SymbolListUiState())
     val uiState = _uiState.asStateFlow()
 
     init {
         viewModelScope.launch {
-            when (val symbolList = symbolRepository.getSymbolList()) {
-                is Result.Success -> {
-                    _uiState.update { it.copy(isLoading = false, symbolList = symbolList.data) }
-                }
+            symbolRepository.getSymbolList().collect { symbolList ->
+                when (symbolList) {
+                    is Result.Success -> {
+                        _uiState.update { it.copy(isLoading = false, symbolList = symbolList.data) }
+                    }
 
-                is Result.Error -> {
-                    // TODO: handle error
+                    is Result.Error -> {
+                        // TODO: handle error
+                    }
                 }
             }
         }

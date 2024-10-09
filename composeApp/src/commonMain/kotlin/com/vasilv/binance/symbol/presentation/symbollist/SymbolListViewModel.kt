@@ -23,7 +23,12 @@ class SymbolListViewModel(private val symbolRepository: SymbolRepository) :
                     }
 
                     is Result.Error -> {
-                        // TODO: handle error
+                        _uiState.update {
+                            it.copy(
+                                isLoading = false,
+                                error = symbolList.error.toString()
+                            )
+                        }
                     }
                 }
             }
@@ -33,8 +38,19 @@ class SymbolListViewModel(private val symbolRepository: SymbolRepository) :
     fun refresh() {
         viewModelScope.launch {
             _uiState.update { it.copy(isRefreshing = true) }
-            symbolRepository.refreshSymbolList()
-            _uiState.update { it.copy(isRefreshing = false) }
+
+            val result = symbolRepository.refreshSymbolList()
+            val error = if (result is Result.Error) {
+                result.error.toString()
+            } else {
+                null
+            }
+
+            _uiState.update { it.copy(isRefreshing = false, error = error) }
         }
+    }
+
+    fun onErrorShown() {
+        _uiState.update { it.copy(error = null) }
     }
 }

@@ -6,6 +6,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
+import co.touchlab.kermit.Logger
 import com.vasilv.binance.symbol.presentation.symboldetail.SymbolDetailScreen
 import org.koin.compose.viewmodel.koinViewModel
 
@@ -15,6 +16,8 @@ class SymbolListScreen : Screen {
         val viewModel: SymbolListViewModel = koinViewModel<SymbolListViewModel>()
         val uiState by viewModel.uiState.collectAsStateWithLifecycle()
         val navigator = LocalNavigator.currentOrThrow
+
+        Logger.i("isLoading2=${uiState.isLoading}")
 
         SymbolListContent(
             isLoading = uiState.isLoading,
